@@ -11,8 +11,8 @@ jobs:
         id: scan
         with:
           image: "localbuild/testimage:latest"
-          fail-build: true
-          severity-cutoff: critcal
+          fail-build: false
+          severity-cutoff: high
       - name: upload Anchore scan SARIF report
         uses: github/codeql-action/upload-sarif@v2
         with:
