@@ -1,4 +1,4 @@
-FROM httpd:latest
+FROM nginx:latest
 RUN apt update -y
 WORKDIR /var/www/html
 EXPOSE 80
