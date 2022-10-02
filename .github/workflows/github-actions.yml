@@ -13,11 +13,11 @@ jobs:
         id: docker-image-scan
         with:
           image-ref: 'localbuild/testimage:${{ github.sha }}'
-          format: 'template'
+          format: 'sarif'
           exit-code: '1'
           ignore-unfixed: false
           vuln-type: 'os,library'
-          template: '@/contrib/sarif.tpl'
+      #    template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
           severity: 'LOW,CRITICAL,HIGH,CRITICAL'
       #- uses: anchore/scan-action@v3
@@ -40,5 +40,5 @@ jobs:
           password: 'welcome@123'
       - run: |
           docker tag  suriyancss/testimage:${{ github.sha }}  suriyancss/testimage:latest
-          docker push suriyancss/azure-test/testimage:latest
+          docker push suriyancss/azure-test:latest
 
