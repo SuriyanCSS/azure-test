@@ -39,6 +39,6 @@ jobs:
           username: 'suriyancss'
           password: 'welcome@123'
       - run: |
-          docker tag  localbuild/testimage:${{ github.sha }}  localbuild/testimage:latest
-          docker push suriyancss/azure-test:latest
+          docker tag  localbuild/testimage:${{ github.sha }}  suriyancss/azure-test/testimage:latest
+          docker push suriyancss/azure-test/testimage:latest
 
