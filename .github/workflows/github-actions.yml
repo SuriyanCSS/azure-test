@@ -14,7 +14,7 @@ jobs:
         with:
           image-ref: 'localbuild/testimage:${{ github.sha }}'
           format: 'sarif'
-          exit-code: '1'
+      #    exit-code: '1'
           ignore-unfixed: false
           vuln-type: 'os,library'
       #    template: '@/contrib/sarif.tpl'
