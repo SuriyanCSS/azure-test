@@ -20,8 +20,8 @@ jobs:
       #    template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
           severity: 'LOW,CRITICAL,HIGH,CRITICAL'
-          if: ${{ steps.docker-image-scan.with.severity == 'LOW' }}
-          exit code: 1
+          if: ${{ steps.docker-image-scan.with.severity == 'HIGH' }}
+          run : exit 1
       - name: upload Anchore scan SARIF report
         uses: github/codeql-action/upload-sarif@v2
         if: always()
