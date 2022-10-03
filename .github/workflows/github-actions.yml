@@ -20,7 +20,9 @@ jobs:
       #    template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
           severity: 'LOW,CRITICAL,HIGH,CRITICAL'
-      - name: upload Anchore scan SARIF report
+      #    if: ${{ severity == 'LOW' }}
+          args: --exit-code 1
+      - name: upload Trivy scan SARIF report
         uses: github/codeql-action/upload-sarif@v2
         if: always()
         with:
