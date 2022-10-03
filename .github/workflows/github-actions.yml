@@ -20,7 +20,8 @@ jobs:
           vuln-type: 'os,library'
       #    template: '@/contrib/sarif.tpl'
           output: 'trivy-results.sarif'
-          severity: 'LOW,CRITICAL,HIGH,CRITICAL' 
+      #    (options = 'LOW,CRITICAL,HIGH,CRITICAL')
+          severity: 'CRITICAL' 
       #    if: ${{ severity == 'LOW' }}
       - name: upload Trivy scan SARIF report
         uses: github/codeql-action/upload-sarif@v2
