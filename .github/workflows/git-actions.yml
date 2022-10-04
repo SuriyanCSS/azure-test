@@ -13,11 +13,11 @@ jobs:
         id: docker-image-scan
         with:
           image-ref: 'localbuild/testimage:${{ github.sha }}'
-          format: 'json'
+          format: 'table'
           exit-code: '1'
           ignore-unfixed: false
           vuln-type: 'os,library'
-      #    output: 'trivy-results.sarif'
+          output: 'trivy-results.html'
       #    (options = 'LOW,CRITICAL,HIGH,CRITICAL')
           severity: 'LOW' 
       # - name: upload Trivy scan SARIF report
