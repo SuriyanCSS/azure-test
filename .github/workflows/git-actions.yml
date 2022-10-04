@@ -1,0 +1,36 @@
+name: Container Image CI
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the container image
+        run: docker build . --file Dockerfile --tag localbuild/testimage:${{ github.sha }}
+        
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
+        id: docker-image-scan
+        with:
+          image-ref: 'localbuild/testimage:${{ github.sha }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: false
+          vuln-type: 'os,library'
+          output: 'trivy-results.sarif'
+      #    (options = 'LOW,CRITICAL,HIGH,CRITICAL')
+          severity: 'LOW' 
+      # - name: upload Trivy scan SARIF report
+      #   uses: github/codeql-action/upload-sarif@v2
+      #   if: always()
+      #   with:
+      #     sarif_file: 'trivy-results.sarif'
+      # - name: push docker image to ACR
+      #   if: ${{ success() }}
+      #   uses: docker/login-action@v2
+      #   with:
+      #     username: 'suriyancss'
+      #     password: 'welcome@123'
+      # - run: |
+      #     docker tag  localbuild/testimage:${{ github.sha }}  suriyancss/azure-test/testimage:latest
+      #     docker push suriyancss/azure-test/testimage:latest
