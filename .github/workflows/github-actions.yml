@@ -17,7 +17,7 @@ jobs:
         with:
           image-ref: 'https://hub.docker.com/repository/docker/suriyancss/azure-test'
           format: 'table'
-#          output: 'trivy-results.sarif'
+          output: 'trivy-results.sarif'
         env:
           TRIVY_USERNAME: 'suriyancss'
           TRIVY_PASSWORD: 'welcome@123'
