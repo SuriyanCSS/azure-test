@@ -1,6 +1,6 @@
 FROM composer:2.2 AS build
 WORKDIR /tmp/
-COPY composer.json composer.json
+#COPY composer.json composer.json
 RUN composer install --ignore-platform-reqs
 
 FROM ubuntu:20.04
