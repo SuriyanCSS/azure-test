@@ -27,6 +27,7 @@ WORKDIR /var/www/html/
 COPY --from=build /tmp/vendor/ /var/www/html/vendor/
 COPY index.php /var/www/html/index.php
 
+
 RUN chown 1002:1002  /var/log/ /opt/fluent-bit/* /etc/fluent_bit/* /etc/nginx/* /etc/php/7.4/fpm/* /var/run/ /var/log/nginx/* /var/lib/nginx /var/run/*
 
 EXPOSE 80
