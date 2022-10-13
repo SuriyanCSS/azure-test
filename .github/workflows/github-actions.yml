@@ -48,7 +48,7 @@ jobs:
         with:
           sarif_file: 'prod-trivy-results.sarif'
 
-      - name: Push Docker Image to ACR
+      - name: Push Docker Image to AC R
         if: ${{ success() }}
         run: |
           docker tag  localbuild/testimage:${{ github.sha }}  suriyancss/azure-test/testimage:latest
