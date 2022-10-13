@@ -1,41 +1,55 @@
 name: Container Image CI
-on: [push]
+on: 
+  push:
+    branches:
+      - "master"
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Build the container image
-        run: docker build . --file Dockerfile --tag localbuild/testimage:${{ github.sha }}
-        
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
-        id: docker-image-scan
-        with:
-          image-ref: 'localbuild/testimage:${{ github.sha }}'
-      #    args: --exit-code 1
-          format: 'sarif'
-          exit-code: '1'
-          ignore-unfixed: false
-          vuln-type: 'os,library'
-      #    template: '@/contrib/sarif.tpl'
-          output: 'trivy-results.sarif'
-      #    (options = 'LOW,CRITICAL,HIGH,CRITICAL')
-          severity: 'LOW' 
-      #    if: ${{ severity == 'LOW' }}
-      - name: upload Trivy scan SARIF report
-        uses: github/codeql-action/upload-sarif@v2
-        if: always()
-        with:
-          sarif_file: 'trivy-results.sarif'
-      - name: push docker image to ACR
-      #  if: ${{ steps.docker-image-scan.with.severity == 'LOW' }}
-        if: ${{ success() }}
+      - name: Checkout Github Action
+        uses: actions/checkout@v2
+
+      - name: Login to Dockerhub
         uses: docker/login-action@v2
         with:
           username: 'suriyancss'
           password: 'welcome@123'
-      - run: |
+
+      - name: Build the Container Image
+        run: docker build . --file Dockerfile --tag localbuild/testimage:${{ github.sha }}
+        
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        id: docker-image-scan
+        with:
+          image-ref: 'localbuild/testimage:${{ github.sha }}'
+          format: 'sarif'
+          exit-code: '1'
+          ignore-unfixed: false
+          vuln-type: 'os,library'
+          output: 'prod-trivy-results.sarif'
+          #(options = 'LOW,CRITICAL,HIGH,CRITICAL')
+          severity: 'LOW' 
+
+      - name: Upload report to Azure Storage Container
+        if: failure()
+        uses: LanceMcCarthy/Action-AzureBlobUpload@v2
+        with:
+          connection_string: DefaultEndpointsProtocol=https;AccountName=st4devops4eus;AccountKey=xr6EnxFB1jQ+Z5FEfDy3frI6N79URs/J9EwOZQ/pKpCbLhzMIqE2RjCngn4HlnBYrxztAh+4qCJO+ASt2tlM1A==;EndpointSuffix=core.windows.net
+          container_name: fileuploadtest-suriyan #(input container name)
+          source_folder: prod-trivy-results.sarif
+          destination_folder: scanresultappname/scanresultsregistry #(input folder)
+          delete_if_exists: true
+
+      - name: Upload Trivy scan SARIF report
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: 'prod-trivy-results.sarif'
+
+      - name: Push Docker Image to ACR
+        if: ${{ success() }}
+        run: |
           docker tag  localbuild/testimage:${{ github.sha }}  suriyancss/azure-test/testimage:latest
           docker push suriyancss/azure-test/testimage:latest
-
