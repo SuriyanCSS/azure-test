@@ -9,7 +9,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - run: |
-        #git init
+        git init
         cd .git
         git clone https://github.com/SuriyanCSS/azure-test.git
         gh secret set IMAGE_NAME --body "suriyancss/azure-test/testimage:latest"
