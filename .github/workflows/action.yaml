@@ -1,0 +1,11 @@
+name: Container Image CI
+on: 
+  push:
+  
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh secret set IMAGE_NAME --body "ubuntulatest"
+      
+    
