@@ -1,7 +1,6 @@
 name: Container Image CI
-on: 
-  push:
-  
+on: [push]
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
