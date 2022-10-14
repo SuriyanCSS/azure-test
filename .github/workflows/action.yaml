@@ -7,6 +7,6 @@ jobs:
     steps:
       - run: gh secret set IMAGE_NAME --body "suriyancss/azure-test/testimage:latest"
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
     
