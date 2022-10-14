@@ -10,8 +10,7 @@ jobs:
       
     - run: gh secret set IMAGE_NAME --body "suriyancss/azure-test/testimage:latest"
       env: 
-        GH_TOKEN: ${{ secrets.GH_TOKEN }} 
-    - run: gh secret list
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
         
  
