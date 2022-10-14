@@ -24,7 +24,7 @@ jobs:
         id: docker-image-scan
         with:
           image-ref: 'localbuild/testimage:${{ github.sha }}'
-          format: 'sarif'
+          format: 'table'
           exit-code: '1'
           ignore-unfixed: false
           vuln-type: 'os,library'
