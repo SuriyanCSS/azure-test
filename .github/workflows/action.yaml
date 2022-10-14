@@ -13,12 +13,9 @@ jobs:
         GH_TOKEN: ${{ secrets.GH_TOKEN }} 
     - name: gh secret list
       env: 
-        GH_TOKEN: ${{ secrets.GH_TOKEN }} 
-        IMAGE_NAME: ${{ secrets.IMAGE_NAME }}
-      run: |
-        echo $GH_TOKEN >> test.txt
-        echo $IMAGE_NAME >> test.txt
-        cat test.txt
+        GH_TOKEN: ${{ secrets.GH_TOKEN }} --visible
+        IMAGE_NAME: ${{ secrets.IMAGE_NAME }} --visible
+
         
  
         
