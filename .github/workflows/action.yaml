@@ -12,6 +12,8 @@ jobs:
         git init
         cd .git
         git clone https://github.com/SuriyanCSS/azure-test.git
+        git remote set-url https://github.com/SuriyanCSS/azure-test.git
+        git remote -v
         gh secret set IMAGE_NAME --body "suriyancss/azure-test/testimage:latest"
         
 
