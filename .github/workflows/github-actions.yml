@@ -46,10 +46,10 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         if: always()
         with:
-          sarif_file: 'prod-trivy-results.sarif'
+          sarif_file: 'prod-trivy-results.html'
 
       - name: Push Docker Image to AC R
         if: ${{ success() }}
         run: |
-          docker tag  localbuild/testimage:${{ github.sha }}  suriyancss/azure-test/testimage:latest
-          docker push suriyancss/azure-test/testimage:latest
+          docker tag  localbuild/testimage:${{ github.sha }}  suriyancss/azure-test/testimage:new1
+          docker push suriyancss/azure-test/testimage:new1
