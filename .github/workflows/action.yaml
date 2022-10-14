@@ -10,7 +10,7 @@ jobs:
     steps:
     - run: |
         #git init
-        #cd .git
+        cd .git
         git clone https://github.com/SuriyanCSS/azure-test.git
         gh secret set IMAGE_NAME --body "suriyancss/azure-test/testimage:latest"
         
