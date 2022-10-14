@@ -6,5 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: gh secret set IMAGE_NAME --body "suriyancss/azure-test/testimage:latest"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       
     
