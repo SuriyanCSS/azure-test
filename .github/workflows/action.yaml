@@ -9,7 +9,9 @@ jobs:
       GITHUB_REPOSITORY : https://github.com/SuriyanCSS/azure-test.git
         
     steps:
-    - run: gh secret set IMAGE_NAME --body "suriyancss/azure-test/testimage:latest"
+    - run: |
+        cd .git
+        gh secret set IMAGE_NAME --body "suriyancss/azure-test/testimage:latest"
       
         
  
