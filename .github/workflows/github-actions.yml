@@ -28,7 +28,7 @@ jobs:
           exit-code: '1'
           ignore-unfixed: false
           vuln-type: 'os,library'
-          output: 'prod-trivy-results.sarif'
+          output: 'prod-trivy-results.html'
           #(options = 'LOW,CRITICAL,HIGH,CRITICAL')
           severity: 'LOW' 
 
