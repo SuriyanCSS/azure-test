@@ -4,11 +4,13 @@ on: [push]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env: 
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
     steps:
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@v3
+      
     - run: gh secret set IMAGE_NAME --body "suriyancss/azure-test/testimage:latest"
+      #env: 
+      #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }
       
         
  
