@@ -10,6 +10,7 @@ jobs:
         
     steps:
     - run: |
+        git init 
         cd .git
         gh secret set IMAGE_NAME --body "suriyancss/azure-test/testimage:latest"
       
