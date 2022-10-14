@@ -5,16 +5,17 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     env: 
-      #repository: SuriyanCSS/azure-test
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
+        
     steps:
-    - run: |
-        git init
-        cd .git
-        git remote set-url origin https://github.com/SuriyanCSS/azure-test.git
-        git remote -v
-        git clone https://github.com/SuriyanCSS/azure-test.git
-        gh secret set IMAGE_NAME --body "suriyancss/azure-test/testimage:latest"
+    - with:
+        repository: https://github.com/SuriyanCSS/azure-test.git
+        
+    - run: gh secret set IMAGE_NAME --body "suriyancss/azure-test/testimage:latest"
+      
+        
+ 
         
 
     
