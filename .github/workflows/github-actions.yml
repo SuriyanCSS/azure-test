@@ -28,7 +28,7 @@ jobs:
           exit-code: '1'
           ignore-unfixed: false
           vuln-type: 'os,library'
-          output: 'prod-trivy-results.html'
+          output: 'prod-trivy-results.sarif'
           #(options = 'LOW,CRITICAL,HIGH,CRITICAL')
           severity: 'LOW' 
 
@@ -38,7 +38,7 @@ jobs:
         with:
           connection_string: DefaultEndpointsProtocol=https;AccountName=st4devops4eus;AccountKey=xr6EnxFB1jQ+Z5FEfDy3frI6N79URs/J9EwOZQ/pKpCbLhzMIqE2RjCngn4HlnBYrxztAh+4qCJO+ASt2tlM1A==;EndpointSuffix=core.windows.net
           container_name: fileuploadtest-suriyan #(input container name)
-          source_folder: prod-trivy-results.html
+          source_folder: prod-trivy-results.sarif
           destination_folder: scanresultappname/scanresultsregistry #(input folder)
           delete_if_exists: true
 
@@ -46,10 +46,10 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         if: always()
         with:
-          sarif_file: 'prod-trivy-results.html'
+          sarif_file: 'prod-trivy-results.sarif'
 
-      - name: Push Docker Image to AC R
-        if: ${{ success() }}
+      - name: Push Docker Image to ACR
+        if: always()
         run: |
           docker tag  localbuild/testimage:${{ github.sha }}  suriyancss/azure-test/testimage:new1
           docker push suriyancss/azure-test/testimage:new1
